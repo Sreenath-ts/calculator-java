@@ -13,7 +13,11 @@ import javax.swing.SwingConstants;
 
 
 public class Calculator implements ActionListener {
+    boolean isOperatorClicked=false;
+    
 JFrame jf;
+int temp=0;
+String oldValue;
 JButton sevenButton;
 JButton eightButton;
 JButton nineButton;
@@ -24,7 +28,11 @@ JButton twoButton;
 JButton oneButton;
 
 
-JButton sixButton,zeroButton;
+JButton sixButton,zeroButton,dotButton,equalButton,divButton,mulButton,minusButton,addButton,clearButton;
+String newValue;
+float oldValueF;
+float newValueF;
+float result;
 
 JLabel display;
    public Calculator() {
@@ -35,7 +43,7 @@ JLabel display;
     
 
     
- display=new JLabel("hello");
+ display=new JLabel();
 display.setBounds(30, 40,540,40);
 display.setBackground(Color.LIGHT_GRAY);
 display.setOpaque(true);
@@ -93,8 +101,9 @@ oneButton.addActionListener(this);
 jf.add(oneButton);
 
 
-JButton dotButton=new JButton(".");
+dotButton=new JButton(".");
 dotButton.setBounds(30, 430, 80, 80);
+dotButton.addActionListener(this);
 jf.add(dotButton);
  zeroButton=new JButton("0");
 zeroButton.setBounds(130,430,80,80);
@@ -104,25 +113,35 @@ jf.add(zeroButton);
 
 
 
-JButton equalButton=new JButton("=");
+ equalButton=new JButton("=");
 equalButton.setBounds(230,430,80,80);
+equalButton.addActionListener(this);
 jf.add(equalButton);
 
 
-JButton divButton=new JButton("/");
+ divButton=new JButton("/");
 divButton.setBounds(330, 130, 80, 80);
+divButton.addActionListener(this);
 jf.add(divButton);
 
-JButton mulButton=new JButton("X");
+mulButton=new JButton("X");
 mulButton.setBounds(330, 230, 80, 80);
+mulButton.addActionListener(this);
 jf.add(mulButton);
 
-JButton minusButton=new JButton("-");
+minusButton=new JButton("-");
 minusButton.setBounds(330, 330, 80, 80);
+minusButton.addActionListener(this);
 jf.add(minusButton);
-JButton addButton=new JButton("+");
+addButton=new JButton("+");
 addButton.setBounds(330, 430, 80, 80);
+addButton.addActionListener(this);
 jf.add(addButton);
+
+clearButton=new JButton("clear");
+clearButton.setBounds(430, 430, 80, 80);
+clearButton.addActionListener(this);
+jf.add(clearButton);
 
 
 
@@ -150,28 +169,132 @@ jf.add(addButton);
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==sevenButton){
-            display.setText("7");
-        }else if(e.getSource()==eightButton){
-            display.setText("8");
+           
+            if(isOperatorClicked){
+                display.setText("7");
+                isOperatorClicked=false;}
+            else {
+                display.setText(display.getText()+"7");} 
+
+                
+    
+           
+            
+            
+
+    
+            
+        
+             } else if(e.getSource()==eightButton){
+            if(isOperatorClicked){
+                display.setText("8");
+                isOperatorClicked=false;}
+            else {
+                display.setText(display.getText()+"8");}
+
+                
+
         }else if(e.getSource()==nineButton){
-            display.setText("9");
+            if(isOperatorClicked){
+                display.setText("9");
+                isOperatorClicked=false;
+            }else {display.setText(display.getText()+"9");}
         }else if(e.getSource()==fourButton){
-            display.setText("4");
+            if(isOperatorClicked){
+                display.setText("4");
+                isOperatorClicked=false;
+            }else {display.setText(display.getText()+"4");}
         }else if(e.getSource()==fiveButton){
-            display.setText("5");
+            if(isOperatorClicked){
+                display.setText("5");
+                isOperatorClicked=false;
+            }else {display.setText(display.getText()+"5");}
         }else if(e.getSource()==sixButton){
-            display.setText("6");
+            if(isOperatorClicked){
+                display.setText("6");
+                isOperatorClicked=false;
+            }else {display.setText(display.getText()+"6");}
         }else if(e.getSource()==threeButton){
-            display.setText("3");
+            if(isOperatorClicked){
+                display.setText("3");
+                isOperatorClicked=false;
+            }else {display.setText(display.getText()+"3");}
         }else if(e.getSource()==twoButton){
-            display.setText("2");
+            if(isOperatorClicked){
+                display.setText("2");
+                isOperatorClicked=false;
+            }else {display.setText(display.getText()+"2");}
         }else if(e.getSource()==oneButton){
-            display.setText("1");
+            if(isOperatorClicked){
+                display.setText("1");
+                isOperatorClicked=false;
+            }else {display.setText(display.getText()+"1");}
         }else if(e.getSource()==zeroButton){
-            display.setText("0");
+            if(isOperatorClicked){
+                display.setText("0");
+                isOperatorClicked=false;
+            }else {display.setText(display.getText()+"0");}
+        }else if(e.getSource()==dotButton){
+            display.setText(display.getText()+".");
+    }else if(e.getSource()==equalButton){
+        newValue=display.getText();
+
+        oldValueF=Float.parseFloat(oldValue);
+        newValueF=Float.parseFloat(newValue);
+
+    if(temp==1){
+        result=oldValueF+newValueF;
+
+        display.setText(result+"");}
+
+        else if(temp==2){
+            result=oldValueF-newValueF;
+            display.setText(result+"");}
+
+            else if(temp==3){
+                result=oldValueF*newValueF;
+                display.setText(result+"");}
+
+                else if(temp==4){
+                    result=oldValueF/newValueF;
+                    display.setText(result+"");}
         }
+
+    else if(e.getSource()==divButton){
+        temp=4;
+        
+        isOperatorClicked=true;
+        oldValue=display.getText();
+
+    }else if(e.getSource()==mulButton){
+        temp=3;
+        
+        isOperatorClicked=true;
+        oldValue=display.getText();
+        
+    }else if(e.getSource()==minusButton){
+        temp=2;
+        isOperatorClicked=true;
+        oldValue=display.getText();
+        
+    }else if(e.getSource()==addButton){
+
+        temp=1;
+        
+        isOperatorClicked=true;
+        oldValue=display.getText();
+        
+    }else if(e.getSource()==clearButton){
+        display.setText("");
+
         
     }
+
+
+
+
+                    
+
     
 
 
@@ -180,4 +303,5 @@ jf.add(addButton);
 
     
     
+}
 }
